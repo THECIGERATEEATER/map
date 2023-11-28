@@ -13,16 +13,29 @@ sprites.onOverlap(SpriteKind.Player_2, SpriteKind.Projectile, function (sprite, 
     sprites.destroy(sword2)
 })
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    Arrow = sprites.createProjectileFromSprite(img`
-        . . . . . . . . 
-        b . . . . . . . 
-        . b . . . . 1 . 
-        . . e e e e 1 1 
-        . b . . . . 1 . 
-        b . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        `, Player2, p2_a, 0)
+    if (p2_b > 0) {
+        Arrow = sprites.createProjectileFromSprite(img`
+            . . . . . . . . 
+            b . . . . . . . 
+            . b . . . . 1 . 
+            . . e e e e 1 1 
+            . b . . . . 1 . 
+            b . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `, Player2, p2_a, 0)
+    } else {
+        Arrow = sprites.createProjectileFromSprite(img`
+            . . . . . . . . 
+            . . . . . . . b 
+            . 1 . . . . b . 
+            1 1 e e e e . . 
+            . 1 . . . . b . 
+            . . . . . . . b 
+            . . . . . . . . 
+            . . . . . . . . 
+            `, Player2, p2_a, 0)
+    }
     Arrow.x += p2_b
 })
 function Send_Player_2_to_the_shadow_realm () {
@@ -53,16 +66,29 @@ controller.player1.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.P
     P1_b = 15
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    Arrow = sprites.createProjectileFromSprite(img`
-        . . . . . . . . 
-        b . . . . . . . 
-        . b . . . . 1 . 
-        . . e e e e 1 1 
-        . b . . . . 1 . 
-        b . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        `, Player1, P1_a, 0)
+    if (P1_b > 0) {
+        Arrow = sprites.createProjectileFromSprite(img`
+            . . . . . . . . 
+            b . . . . . . . 
+            . b . . . . 1 . 
+            . . e e e e 1 1 
+            . b . . . . 1 . 
+            b . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `, Player1, P1_a, 0)
+    } else {
+        Arrow = sprites.createProjectileFromSprite(img`
+            . . . . . . . . 
+            . . . . . . . b 
+            . 1 . . . . b . 
+            1 1 e e e e . . 
+            . 1 . . . . b . 
+            . . . . . . . b 
+            . . . . . . . . 
+            . . . . . . . . 
+            `, Player1, P1_a, 0)
+    }
     Arrow.x += P1_b
 })
 info.player1.onLifeZero(function () {
@@ -194,6 +220,24 @@ Player2 = sprites.create(img`
     . . . f f 1 d 1 d 1 d f f . . . 
     . . . . . f f b b f f . . . . . 
     `, SpriteKind.Player_2)
+let mySprite = sprites.create(img`
+    . . . . . . . . . f . . . . . . 
+    . . . . . . f f f . f f . . . . 
+    . . . . . . f . . . . f . . . . 
+    . . . . . . f f f . f f . . . . 
+    . . . . . . . f f f . . . . . . 
+    . . . f f f f f f f f f f f . . 
+    . . . . . . . . f . . . . . . . 
+    . . . . . . . f . . . . . . . . 
+    . . . . . . . f . . . . . . . . 
+    . . . . . . . f f . . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . . . f . f f . . . . . . 
+    . . . . . f f . . f . . . . . . 
+    . . . . . f . . . f f . . . . . 
+    . . . . f f . . . . f . . . . . 
+    . . . . f . . . . . f . . . . . 
+    `, SpriteKind.Player)
 sprites.destroy(Arrow)
 sprites.destroy(Arrow_22)
 Pointer_1 = sprites.create(img`
