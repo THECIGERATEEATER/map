@@ -43,14 +43,29 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
     }
     Arrow.x += p2_b
 })
+info.player4.onLifeZero(function () {
+    sprites.destroy(Pointer_4)
+    Send_Player_4_to_the_shadow_realm3()
+})
 function Send_Player_2_to_the_shadow_realm () {
     for (let index = 0; index < 15; index++) {
         Player2.x += 1e+21
     }
 }
+// Todo: Make health pickups
+sprites.onOverlap(SpriteKind.Player_4, SpriteKind.Projectile, function (sprite, otherSprite) {
+    info.player4.changeLifeBy(-1)
+    sprites.destroy(Arrow)
+    sprites.destroy(sword2)
+})
 function Send_Player_1_to_the_shadow_realm2 () {
     for (let index = 0; index < 15; index++) {
         Player1.x += 1e+21
+    }
+}
+function Send_Player_4_to_the_shadow_realm3 () {
+    for (let index = 0; index < 15; index++) {
+        Player4.x += 1e+21
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite2, otherSprite2) {
@@ -61,6 +76,32 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite2, o
 controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     p2_a = 50
     p2_b = 15
+})
+controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    if (p4_b > 0) {
+        Arrow = sprites.createProjectileFromSprite(img`
+            . . . . . . . . 
+            b . . . . . . . 
+            . b . . . . 1 . 
+            . . e e e e 1 1 
+            . b . . . . 1 . 
+            b . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `, Player4, p4_a, 0)
+    } else {
+        Arrow = sprites.createProjectileFromSprite(img`
+            . . . . . . . . 
+            . . . . . . . b 
+            . 1 . . . . b . 
+            1 1 e e e e . . 
+            . 1 . . . . b . 
+            . . . . . . . b 
+            . . . . . . . . 
+            . . . . . . . . 
+            `, Player4, p4_a, 0)
+    }
+    Arrow.x += p4_b
 })
 controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     p2_a = -50
@@ -166,13 +207,14 @@ controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pr
     P1_a = -50
     P1_b = -15
 })
-let p4_b = 0
 let p4_a = 0
+let p4_b = 0
 let P1_a = 0
 let P1_b = 0
 let p2_a = 0
 let p2_b = 0
 let sword2: Sprite = null
+let Pointer_4: Sprite = null
 let Pointer_2: Sprite = null
 let Pointer_1: Sprite = null
 let Player4: Sprite = null
@@ -270,7 +312,7 @@ Pointer_2 = sprites.create(img`
     . . 7 . . 
     . . 7 . . 
     `, SpriteKind.Arrow_2)
-let Pointer_4 = sprites.create(img`
+Pointer_4 = sprites.create(img`
     . . 7 . . 
     . . 7 . . 
     7 7 7 7 7 
