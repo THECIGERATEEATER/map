@@ -321,6 +321,7 @@ Pointer_4 = sprites.create(img`
     `, SpriteKind.Arrow_4)
 info.player2.setLife(3)
 info.player1.setLife(3)
+info.player4.setLife(3)
 sword2 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
