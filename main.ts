@@ -309,7 +309,6 @@ let Player4: Sprite = null
 let Player2: Sprite = null
 let Player1: Sprite = null
 let Arrow: Sprite = null
-scene.setBackgroundColor(0)
 Arrow = sprites.create(img`
     . . . . . . . . 
     b . . . . . . . 
