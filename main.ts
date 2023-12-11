@@ -207,7 +207,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite2, o
     sprites.destroy(sword2)
 })
 controller.player3.onEvent(ControllerEvent.Connected, function () {
-    controller.player3.moveSprite(Player2)
+    controller.player3.moveSprite(Player3)
 })
 controller.player3.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     p3_a = 50
@@ -301,7 +301,7 @@ controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
             b . . . . . . . 
             . . . . . . . . 
             . . . . . . . . 
-            `, Player1, P1_a, 0)
+            `, Player3, p3_a, 0)
     } else {
         Arrow = sprites.createProjectileFromSprite(img`
             . . . . . . . . 
@@ -312,7 +312,7 @@ controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
             . . . . . . . b 
             . . . . . . . . 
             . . . . . . . . 
-            `, Player1, P1_a, 0)
+            `, Player3, p3_a, 0)
     }
     Arrow.x += P1_b
 })
