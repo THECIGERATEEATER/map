@@ -17,6 +17,94 @@ sprites.onOverlap(SpriteKind.Player_2, SpriteKind.Projectile, function (sprite, 
 controller.player4.onEvent(ControllerEvent.Connected, function () {
     controller.player4.moveSprite(Player4)
 })
+controller.player2.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (p2_b > 0) {
+        sword2 = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . f f f 
+            . . . . . . . . . . . . f 9 9 f 
+            . . . . . . . . . . . f 9 6 9 f 
+            . . . . . . . . . . f 9 6 9 f . 
+            . . . . . . . . . f 9 6 9 f . . 
+            . . . . . . . . f 9 6 9 f . . . 
+            . . f f . . . f 9 6 9 f . . . . 
+            . . f 9 f . f 9 6 9 f . . . . . 
+            . . . f 9 f 9 6 9 f . . . . . . 
+            . . . f 9 9 f 9 f . . . . . . . 
+            . . . . f 9 9 f . . . . . . . . 
+            . . . e e f 9 9 f . . . . . . . 
+            . . e e e . f f 9 f . . . . . . 
+            f f e e . . . . f f . . . . . . 
+            f 9 f . . . . . . . . . . . . . 
+            f f f . . . . . . . . . . . . . 
+            `, Player2, p2_b * 5, 0)
+    } else {
+        sword2 = sprites.createProjectileFromSprite(img`
+            f f f . . . . . . . . . . . . . 
+            f 9 9 f . . . . . . . . . . . . 
+            f 9 6 9 f . . . . . . . . . . . 
+            . f 9 6 9 f . . . . . . . . . . 
+            . . f 9 6 9 f . . . . . . . . . 
+            . . . f 9 6 9 f . . . . . . . . 
+            . . . . f 9 6 9 f . . . f f . . 
+            . . . . . f 9 6 9 f . f 9 f . . 
+            . . . . . . f 9 6 9 f 9 f . . . 
+            . . . . . . . f 9 f 9 9 f . . . 
+            . . . . . . . . f 9 9 f . . . . 
+            . . . . . . . f 9 9 f e e . . . 
+            . . . . . . f 9 f f . e e e . . 
+            . . . . . . f f . . . . e e f f 
+            . . . . . . . . . . . . . f 9 f 
+            . . . . . . . . . . . . . f f f 
+            `, Player2, p2_b * 5, 0)
+    }
+    sword2.x += p2_b
+    pause(100)
+    sprites.destroy(sword2)
+})
+controller.player4.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (p4_b > 0) {
+        sword2 = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . f f f 
+            . . . . . . . . . . . . f 9 9 f 
+            . . . . . . . . . . . f 9 6 9 f 
+            . . . . . . . . . . f 9 6 9 f . 
+            . . . . . . . . . f 9 6 9 f . . 
+            . . . . . . . . f 9 6 9 f . . . 
+            . . f f . . . f 9 6 9 f . . . . 
+            . . f 9 f . f 9 6 9 f . . . . . 
+            . . . f 9 f 9 6 9 f . . . . . . 
+            . . . f 9 9 f 9 f . . . . . . . 
+            . . . . f 9 9 f . . . . . . . . 
+            . . . e e f 9 9 f . . . . . . . 
+            . . e e e . f f 9 f . . . . . . 
+            f f e e . . . . f f . . . . . . 
+            f 9 f . . . . . . . . . . . . . 
+            f f f . . . . . . . . . . . . . 
+            `, Player4, p4_b * 5, 0)
+    } else {
+        sword2 = sprites.createProjectileFromSprite(img`
+            f f f . . . . . . . . . . . . . 
+            f 9 9 f . . . . . . . . . . . . 
+            f 9 6 9 f . . . . . . . . . . . 
+            . f 9 6 9 f . . . . . . . . . . 
+            . . f 9 6 9 f . . . . . . . . . 
+            . . . f 9 6 9 f . . . . . . . . 
+            . . . . f 9 6 9 f . . . f f . . 
+            . . . . . f 9 6 9 f . f 9 f . . 
+            . . . . . . f 9 6 9 f 9 f . . . 
+            . . . . . . . f 9 f 9 9 f . . . 
+            . . . . . . . . f 9 9 f . . . . 
+            . . . . . . . f 9 9 f e e . . . 
+            . . . . . . f 9 f f . e e e . . 
+            . . . . . . f f . . . . e e f f 
+            . . . . . . . . . . . . . f 9 f 
+            . . . . . . . . . . . . . f f f 
+            `, Player4, p4_b * 5, 0)
+    }
+    sword2.x += p4_b
+    pause(100)
+    sprites.destroy(sword2)
+})
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (p2_b > 0) {
         Arrow = sprites.createProjectileFromSprite(img`
@@ -348,7 +436,7 @@ forever(function () {
     Pointer_1.setPosition(Player1.x + P1_b, Player1.y)
 })
 forever(function () {
-    Pointer_2.setPosition(Player2.x + p2_b, Player2.y)
+	
 })
 forever(function () {
     Pointer_4.setPosition(Player4.x + p4_b, Player4.y)
