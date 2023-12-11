@@ -185,12 +185,6 @@ function Send_Player_2_to_the_shadow_realm () {
         Player2.x += 1e+21
     }
 }
-// Todo: Make health pickups
-sprites.onOverlap(SpriteKind.Player_4, SpriteKind.Projectile, function (sprite, otherSprite) {
-    info.player4.changeLifeBy(-1)
-    sprites.destroy(Arrow)
-    sprites.destroy(sword2)
-})
 function Send_Player_1_to_the_shadow_realm2 () {
     for (let index = 0; index < 15; index++) {
         Player1.x += 1e+21
@@ -201,13 +195,14 @@ function Send_Player_4_to_the_shadow_realm3 () {
         Player4.x += 1e+21
     }
 }
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite2, otherSprite2) {
-    info.player1.changeLifeBy(-1)
-    sprites.destroy(Arrow)
-    sprites.destroy(sword2)
-})
 controller.player3.onEvent(ControllerEvent.Connected, function () {
     controller.player3.moveSprite(Player3)
+})
+// Todo: Make health pickups
+sprites.onOverlap(SpriteKind.Player_4, SpriteKind.Projectile, function (sprite2, otherSprite2) {
+    info.player4.changeLifeBy(-1)
+    sprites.destroy(Arrow)
+    sprites.destroy(sword2)
 })
 controller.player3.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     p3_a = 50
@@ -218,9 +213,24 @@ function Send_Player_3_to_the_shadow_realm4 () {
         Player3.x += 1e+21
     }
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite22, otherSprite22) {
+    info.player1.changeLifeBy(-1)
+    sprites.destroy(Arrow)
+    sprites.destroy(sword2)
+})
 controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     p2_a = 50
     p2_b = 15
+})
+info.player3.onLifeZero(function () {
+    sprites.destroy(Pointer_3)
+    Send_Player_3_to_the_shadow_realm4()
+})
+// Todo: Make health pickups
+sprites.onOverlap(SpriteKind.Player_3, SpriteKind.Projectile, function (sprite3, otherSprite3) {
+    info.player3.changeLifeBy(-1)
+    sprites.destroy(Arrow)
+    sprites.destroy(sword2)
 })
 controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (p4_b > 0) {
@@ -392,6 +402,7 @@ let P1_a = 0
 let P1_b = 0
 let sword2: Sprite = null
 let Pointer_4: Sprite = null
+let Pointer_3: Sprite = null
 let Pointer_2: Sprite = null
 let Pointer_1: Sprite = null
 let Player4: Sprite = null
@@ -459,20 +470,20 @@ Player2 = sprites.create(img`
 Player3 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . . . f f f . . . . . . 
+    . . . . . . f f . . f . . . . . 
+    . . . . . . f . . . f . . . . . 
+    . . . . . . f . . . f . . . . . 
+    . . . . . . f . . f . . . . . . 
+    . . . . . . f f f . . . . . . . 
+    . . . . . f f f f f . . . . . . 
+    . . . . f f . . f f f . . . . . 
+    . . . f f . . . f . . f f . . . 
+    . . . . . . . . f . . . f . . . 
+    . . . . . . . . f . . . . . . . 
+    . . . . . . . . f . . . . . . . 
+    . . . . . . f f f f f . . . . . 
+    . . . . f f f . . . f f . . . . 
     `, SpriteKind.Player_3)
 Player4 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -508,7 +519,7 @@ Pointer_2 = sprites.create(img`
     . . 7 . . 
     . . 7 . . 
     `, SpriteKind.Arrow_2)
-let Pointer_3 = sprites.create(img`
+Pointer_3 = sprites.create(img`
     . . 7 . . 
     . . 7 . . 
     7 7 7 7 7 
@@ -554,6 +565,9 @@ p4_b = 999999999
 p4_a = 999999999
 forever(function () {
     Pointer_2.setPosition(Player2.x + p2_b, Player2.y)
+})
+forever(function () {
+    Pointer_3.setPosition(Player3.x + p3_b, Player3.y)
 })
 forever(function () {
     Pointer_1.setPosition(Player1.x + P1_b, Player1.y)
