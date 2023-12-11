@@ -5,11 +5,56 @@ namespace SpriteKind {
     export const Arrow_2 = SpriteKind.create()
     export const Health_1 = SpriteKind.create()
     export const sword = SpriteKind.create()
+    export const player_3 = SpriteKind.create()
 }
 // Todo: Make health pickups
 sprites.onOverlap(SpriteKind.Player_2, SpriteKind.Projectile, function (sprite, otherSprite) {
     info.player2.changeLifeBy(-1)
     sprites.destroy(Arrow)
+    sprites.destroy(sword2)
+})
+controller.player3.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
+    if (p3_b > 0) {
+        sword2 = sprites.createProjectileFromSprite(img`
+            . . . . . . . . . . . . . f f f 
+            . . . . . . . . . . . . f 9 9 f 
+            . . . . . . . . . . . f 9 6 9 f 
+            . . . . . . . . . . f 9 6 9 f . 
+            . . . . . . . . . f 9 6 9 f . . 
+            . . . . . . . . f 9 6 9 f . . . 
+            . . f f . . . f 9 6 9 f . . . . 
+            . . f 9 f . f 9 6 9 f . . . . . 
+            . . . f 9 f 9 6 9 f . . . . . . 
+            . . . f 9 9 f 9 f . . . . . . . 
+            . . . . f 9 9 f . . . . . . . . 
+            . . . e e f 9 9 f . . . . . . . 
+            . . e e e . f f 9 f . . . . . . 
+            f f e e . . . . f f . . . . . . 
+            f 9 f . . . . . . . . . . . . . 
+            f f f . . . . . . . . . . . . . 
+            `, Player1, P1_b * 5, 0)
+    } else {
+        sword2 = sprites.createProjectileFromSprite(img`
+            f f f . . . . . . . . . . . . . 
+            f 9 9 f . . . . . . . . . . . . 
+            f 9 6 9 f . . . . . . . . . . . 
+            . f 9 6 9 f . . . . . . . . . . 
+            . . f 9 6 9 f . . . . . . . . . 
+            . . . f 9 6 9 f . . . . . . . . 
+            . . . . f 9 6 9 f . . . f f . . 
+            . . . . . f 9 6 9 f . f 9 f . . 
+            . . . . . . f 9 6 9 f 9 f . . . 
+            . . . . . . . f 9 f 9 9 f . . . 
+            . . . . . . . . f 9 9 f . . . . 
+            . . . . . . . f 9 9 f e e . . . 
+            . . . . . . f 9 f f . e e e . . 
+            . . . . . . f f . . . . e e f f 
+            . . . . . . . . . . . . . f 9 f 
+            . . . . . . . . . . . . . f f f 
+            `, Player1, P1_b * 5, 0)
+    }
+    sword2.x += p3_b
+    pause(100)
     sprites.destroy(sword2)
 })
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
@@ -40,9 +85,22 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite2, o
     sprites.destroy(Arrow)
     sprites.destroy(sword2)
 })
+controller.player3.onEvent(ControllerEvent.Connected, function () {
+    controller.player3.moveSprite(player_3)
+    scene.cameraFollowSprite(player_3)
+})
+controller.player3.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
+    p3_a = 50
+    p3_b = 15
+})
 controller.player2.onButtonEvent(ControllerButton.Right, ControllerButtonEvent.Pressed, function () {
     p2_a = 50
     p2_b = 15
+})
+sprites.onOverlap(SpriteKind.player_3, SpriteKind.Projectile, function (sprite2, otherSprite2) {
+    info.player1.changeLifeBy(-1)
+    sprites.destroy(Arrow)
+    sprites.destroy(sword2)
 })
 controller.player2.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     p2_a = -50
@@ -65,9 +123,27 @@ controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         `, Player1, P1_a, 0)
     Arrow.x += P1_b
 })
+function Send_Player_2_to_the_shadow_realm2 () {
+    for (let index = 0; index < 15; index++) {
+        player_3.x += 1e+21
+    }
+}
 info.player1.onLifeZero(function () {
     sprites.destroy(Pointer_1)
     Send_Player_1_to_the_shadow_realm2()
+})
+controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    Arrow = sprites.createProjectileFromSprite(img`
+        . . . . . . . . 
+        b . . . . . . . 
+        . b . . . . 1 . 
+        . . e e e e 1 1 
+        . b . . . . 1 . 
+        b . . . . . . . 
+        . . . . . . . . 
+        . . . . . . . . 
+        `, player_3, P1_a, 0)
+    Arrow.x += p3_b
 })
 info.player2.onLifeZero(function () {
     sprites.destroy(Pointer_2)
@@ -75,6 +151,7 @@ info.player2.onLifeZero(function () {
 })
 controller.player2.onEvent(ControllerEvent.Connected, function () {
     controller.player2.moveSprite(Player2)
+    scene.cameraFollowSprite(Player2)
 })
 controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
     if (P1_b > 0) {
@@ -122,11 +199,18 @@ controller.player1.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
 })
 controller.player1.onEvent(ControllerEvent.Connected, function () {
     controller.player1.moveSprite(Player1)
+    scene.cameraFollowSprite(Player1)
+})
+controller.player3.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
+    p3_a = -50
+    p3_b = -15
 })
 controller.player1.onButtonEvent(ControllerButton.Left, ControllerButtonEvent.Pressed, function () {
     P1_a = -50
     P1_b = -15
 })
+let p3_a = 0
+let p3_b = 0
 let P1_a = 0
 let P1_b = 0
 let p2_a = 0
@@ -134,10 +218,11 @@ let p2_b = 0
 let sword2: Sprite = null
 let Pointer_2: Sprite = null
 let Pointer_1: Sprite = null
+let player_3: Sprite = null
 let Player2: Sprite = null
 let Player1: Sprite = null
 let Arrow: Sprite = null
-scene.setBackgroundColor(0)
+tiles.setCurrentTilemap(tilemap`level4`)
 Arrow = sprites.create(img`
     . . . . . . . . 
     b . . . . . . . 
@@ -194,6 +279,24 @@ Player2 = sprites.create(img`
     . . . f f 1 d 1 d 1 d f f . . . 
     . . . . . f f b b f f . . . . . 
     `, SpriteKind.Player_2)
+player_3 = sprites.create(img`
+    . . . . f f f f . . . . . 
+    . . f f f f f f f f . . . 
+    . f f f f f f c f f f . . 
+    f f f f f f c c f f f c . 
+    f f f c f f f f f f f c . 
+    c c c f f f e e f f c c . 
+    f f f f f e e f f c c f . 
+    f f f b f e e f b f f f . 
+    . f 4 1 f 4 4 f 1 4 f . . 
+    . f e 4 4 4 4 4 4 e f . . 
+    . f f f e e e e f f f . . 
+    f e 3 b 7 7 7 7 b f e f . 
+    e 4 f 7 7 7 7 7 7 f 4 e . 
+    e e f 6 6 6 6 6 6 f e e . 
+    . . . f f f f f f . . . . 
+    . . . f f . . f f . . . . 
+    `, SpriteKind.player_3)
 sprites.destroy(Arrow)
 sprites.destroy(Arrow_22)
 Pointer_1 = sprites.create(img`
@@ -230,10 +333,24 @@ sword2 = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.sword)
-p2_b = 99999999
-p2_a = 99999990
-P1_b = 9999999
+p2_b = 999999999
+p2_a = 999999999
+P1_b = 999999999
 P1_a = 999999999
+p3_b = 999999999
+p3_a = 999999999
+forever(function () {
+    scene.cameraFollowSprite(Player1)
+})
+forever(function () {
+    scene.cameraFollowSprite(Player2)
+})
+forever(function () {
+    scene.cameraFollowSprite(player_3)
+})
+forever(function () {
+	
+})
 forever(function () {
     Pointer_1.setPosition(Player1.x + P1_b, Player1.y)
 })
