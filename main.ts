@@ -19,7 +19,7 @@ controller.player4.onEvent(ControllerEvent.Connected, function () {
     controller.player4.moveSprite(Player4)
 })
 controller.player3.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Pressed, function () {
-    if (P1_b > 0) {
+    if (p3_b > 0) {
         sword2 = sprites.createProjectileFromSprite(img`
             . . . . . . . . . . . . . f f f 
             . . . . . . . . . . . . f 1 1 f 
@@ -37,7 +37,7 @@ controller.player3.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
             f f e e . . . . f f . . . . . . 
             f f f . . . . . . . . . . . . . 
             f f f . . . . . . . . . . . . . 
-            `, Player1, P1_b * 5, 0)
+            `, Player3, p3_b * 5, 0)
     } else {
         sword2 = sprites.createProjectileFromSprite(img`
             f f f . . . . . . . . . . . . . 
@@ -56,9 +56,9 @@ controller.player3.onButtonEvent(ControllerButton.B, ControllerButtonEvent.Press
             . . . . . . f f . . . . e e f f 
             . . . . . . . . . . . . . f f f 
             . . . . . . . . . . . . . f f f 
-            `, Player1, P1_b * 5, 0)
+            `, Player3, p3_b * 5, 0)
     }
-    sword2.x += P1_b
+    sword2.x += p3_b
     pause(100)
     sprites.destroy(sword2)
 })
@@ -291,7 +291,7 @@ info.player1.onLifeZero(function () {
     Send_Player_1_to_the_shadow_realm2()
 })
 controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-    if (P1_b > 0) {
+    if (p3_b > 0) {
         Arrow = sprites.createProjectileFromSprite(img`
             . . . . . . . . 
             b . . . . . . . 
@@ -314,7 +314,7 @@ controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
             . . . . . . . . 
             `, Player3, p3_a, 0)
     }
-    Arrow.x += P1_b
+    Arrow.x += p3_b
 })
 info.player2.onLifeZero(function () {
     sprites.destroy(Pointer_2)
@@ -552,6 +552,9 @@ p3_b = 999999999
 p3_a = 999999999
 p4_b = 999999999
 p4_a = 999999999
+forever(function () {
+    Pointer_2.setPosition(Player2.x + p2_b, Player2.y)
+})
 forever(function () {
     Pointer_1.setPosition(Player1.x + P1_b, Player1.y)
 })
